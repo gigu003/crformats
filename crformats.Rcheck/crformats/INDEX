@@ -1,0 +1,7 @@
+copy_internal_file      Copy an Internal File from the Package
+ls_docx                 List available docx templates in the package
+ls_ext                  List bundled Quarto extensions
+use_docx_template       Use the docx templates in the manuscript
+                        package
+use_quarto_ext          Install bundled Quarto extensions into
+                        specified directory
