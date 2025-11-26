@@ -7,6 +7,10 @@
 #'
 #' @return a message if extension was successfully copied over
 #' @export
+#' @examples
+#' \dontrun{
+#' use_quarto_ext("qcreport")
+#' }
 use_quarto_ext <- function(ext_name = "qcreport",
                            dir = NULL,
                            use_qmd = TRUE,
@@ -88,7 +92,10 @@ use_quarto_ext <- function(ext_name = "qcreport",
 #'
 #' @return a string of available extensions for install
 #' @export
-list_ext <- function(){
+#' @examples
+#' ls_ext()
+#'
+ls_ext <- function(){
   list.files(
     system.file(path("extdata", "_extensions"), package = "crformats")
     )

@@ -22,7 +22,7 @@ Provides Quarto extension templates, styles, and helper functions for generating
 
 ## Installation
 
-You can install the development version of crformats from [GitHub](https://github.com/) with:
+You can install the development version of crformats from [GitHub](https://github.com/gigu003/crformats) with:
 
 ``` r
 # install.packages("devtools")

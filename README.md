@@ -13,7 +13,7 @@ generating high-quality cancer registry reports.
 ## Installation
 
 You can install the development version of crformats from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/gigu003/crformats) with:
 
 ``` r
 # install.packages("devtools")

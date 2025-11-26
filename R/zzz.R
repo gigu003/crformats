@@ -13,5 +13,9 @@
 #'    copying a file.
 copy_internal_file <- function(folder, file, dest, overwrite = FALSE) {
   f <- system.file(folder, file, package = "crformats")
+  if (f == "") {
+    stop("Internal file not found in package: ", file,
+         "\nMake sure it is located in inst/", folder)
+  }
   fs::file_copy(f, dest, overwrite = overwrite)
 }

@@ -4,16 +4,21 @@
 \alias{use_docx_template}
 \title{Use the docx templates in the manuscript package}
 \usage{
-use_docx_template(name = "english", overwrite = TRUE)
+use_docx_template(name = "chinese", overwrite = TRUE)
 }
 \arguments{
 \item{name}{Name of the docx template.}
 
-\item{overwrite}{Whether overwrite the template file if it existed.}
+\item{overwrite}{Whether to overwrite the template file if it exists.}
 }
 \value{
-Created docx template.
+Path of the created/used template.
 }
 \description{
 Use the docx templates in the manuscript package
+}
+\examples{
+\dontrun{
+use_docx_template("chinese")
+}
 }

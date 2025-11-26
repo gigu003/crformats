@@ -26,3 +26,8 @@ a message if extension was successfully copied over
 \description{
 Install bundled Quarto extensions into specified directory
 }
+\examples{
+\dontrun{
+use_quarto_ext("qcreport")
+}
+}
