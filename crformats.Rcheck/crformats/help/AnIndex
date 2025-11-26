@@ -1,7 +1,0 @@
-crformats-package	crformats-package
-copy_internal_file	copy_internal_file
-crformats	crformats-package
-ls_docx	ls_docx
-ls_ext	ls_ext
-use_docx_template	use_docx_template
-use_quarto_ext	use_quarto_ext
