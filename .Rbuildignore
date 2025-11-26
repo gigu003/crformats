@@ -1,0 +1,6 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^crformats\.Rproj$
+^LICENSE\.md$
+^data-raw$
+

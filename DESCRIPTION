@@ -1,0 +1,19 @@
+Package: crformats
+Title: Using Quarto Extensions Designed for Cancer Registry Reports
+Version: 0.0.0.9001
+Authors@R: 
+    person("Qiong", "Chen", , "chenq08@126.com", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0003-2401-0046",
+           affiliation = "Department of Cancer Epidemiology, The Affiliated
+           Cancer Hospital of Zhengzhou University & Henan Cancer Hospital,
+           Henan Cancer Registry in China"))
+Description: Provides Quarto extension templates, styles, and helper functions
+    for generating high-quality cancer registry reports.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    fs,
+    here,
+    utils
