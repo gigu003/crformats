@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/gigu003/crformats/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/gigu003/crformats/actions/workflows/R-CMD-check.yaml)
+[![Quarto](https://img.shields.io/badge/Quarto-≥1.8-blue)](https://quarto.org)
+[![Typst](https://img.shields.io/badge/Typst-0.13+-green)](https://typst.app)
 <!-- badges: end -->
 
 Provides Quarto extension templates, styles, and helper functions for
