@@ -1,0 +1,82 @@
+---
+title: "基于肿瘤登记数据估计终生患癌风险"
+subtitle: "使用R语言"
+date: today
+lang: zh
+date-format: "YYYY年M月DD日"
+authors:
+  - name: '陈琼'
+    affiliation: 河南省肿瘤医院
+    email: chenq08@126.com
+last-page: TRUE
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
+categories:
+  - 肿瘤登记
+  - R语言
+series: "肿瘤登记"
+format:
+  qcard-typst:
+    fontsize: 20pt
+    heading-size: 2em
+    mainfont: "Noto Sans Osage"
+    heading-family: "STHeiti"
+    theme-color: blue
+    number-sections: true
+---
+
+# 终生患癌风险概念
+## 疾病风险
+
+> 某一结局事件（疾病）在一个特定时间范围内的发生的概率或可能性^[风险、机会、概率或可能性]。
+
+**为什么评估疾病风险？**
+
+{{<v 1em>}}
+
+ - 公共卫生行动决策需要
+ - 合理分配公共卫生资源(时间和资金)
+ 
+## 风险和关联
+
+> 流行病学中的关联是指暴露与结局之间的相关性。
+
+**关联的测量指标**
+
+- 相对风险(Relative risk)
+- 比值比(Odds ratio)
+- 归因风险(Attributable risk)
+- 人群归因风险(Population attributable risk)
+- 人群归因风险百分比(Population attributable risk percent)
+
+## 估计风险的数据来源
+
+- 队列研究
+- 病例对照研究
+- 流行病学调查
+- 从已经发表或发布的死亡率
+- 现有的疾病登记系统
+
+
+## 绝对风险 VS 相对风险
+
+> **相对风险**(Relative risk, RR)，暴露组和对照组之间发生结局事件概率的比值，表示危险因素与结局事件的关联强度。
+
+相对风险值通常以实际值展示，如**1.25**或**0.85**。
+
+- RR > 1，表示暴露组风险高于对照组
+- RR < 1，表示暴露组风险低于对照组
+
+与非吸烟人群相比，吸烟人群的肺癌相对风险为1.25，表示吸烟人群的肺癌发生风险是非吸烟人群的1.25倍，或比非吸烟人群高25%。
+
+## 绝对风险 VS 相对风险
+
+> **绝对风险**(Absolute risk)，在特定的时期内特定人群发展为癌症的概率或可能性大小。
+
+**终生患癌风险**是绝对风险的一种类型：
+
+-  2020年，全球人群从出生到死亡的生命周期内被诊断为癌症的概率为25.10%，男性为26.27%，女性为23.98%^[Zheng RS, Wang SM, Zhang SW, et al. Global, regional, and national lifetime probabilities of developing cancer in 2020. [J] Sci Bull(Beijing). 2023;68(21):2620-2628.]。
+- 每四个人中有一人（1 in 4）会在整个生命周期内被诊断为癌。
