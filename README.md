@@ -5,6 +5,7 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/gigu003/crformats/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/gigu003/crformats/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Provides Quarto extension templates, styles, and helper functions for
