@@ -8,5 +8,8 @@ format:
   qcfact-typst:
     height: 524.3mm
     width: 370.5mm
-    header-color: rgb(159,70,60)
+    header-color: rgb(43, 87, 154)
 ---
+
+
+{{<pagebreak>}}

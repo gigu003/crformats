@@ -1,62 +1,362 @@
 ---
-title: "2025肿瘤登记质控报告"
-subtitle: "Quality Control for 2022 Annual Cancer Report"
-registry: "河南省癌症中心"
-abstract: "本报告用于《2024河南省肿瘤登记年报》的质量审核，报告分为省市县三级
-          肿瘤登记数据质量审核报告，用于不同级别登记处向下质控和管理。"
+title: "2026河南省肿瘤登记进展报告"
+subtitle: "2026 Report on Cancer Registration in Henan Province"
+registry: "河南省肿瘤登记处"
+author: "河南省癌症中心"
 date: today
-lang: ZH
-footer: ""
-header: "Powered by canregtools"
+date-format: "YYYY年MM月DD日"
+footer: "Powered by canregtools"
+header: "肿瘤登记工作进展，2026"
+crossref:
+  tbl-title: "表"
+  tbl-prefix: "表"
+  fig-title: "图"
+  fig-prefix: "图"
+  eq-prefix: "公式"
+execute:
+  echo: false
+  message: false
+  warning: false
+params:
+  title: "2026河南省肿瘤登记进展报告"
+  subtitle: "2026 Report on Cancer Registration in Henan Province"
+  registry: "河南省肿瘤登记处"
+  author: "河南省癌症中心"
+  year: 2026
 format:
   qcreport-typst:
-    toc: true
-    toc-figure: true
+    section-numbering: "1.1.1"
+    mainfont: "STSong"
+    tablefont: "STSong"
+    tablescriptfont: "PingFang SC"
+    coverfont: "Source Han Serif"
+    cover-bg-opacity: 60%
+    body-bg-opacity: 40%
+    fontsize: 12pt
+    first-line-indent: 2em
+    table-leading: 0.7em
+    par-leading: 1.2em
+    par-spacing: 1.6em
 ---
+```{r}
+library(canregR)
+library(canregtools)
+library(dplyr)
+library(tinytable)
+library(crflow)
+library(scales)
+library(epoxy)
+epoxy_transform_set(
+  .percent = scales::label_percent(accuracy = 0.1),
+  .and = function(x) glue::glue_collapse(x, sep = "，", last = "和")
+)
 
-## 人口情况
-### 历年人口变化情况
-林州市肿瘤登记处覆盖人口总数为 1,117,633，其中男性人口数为 578,590，占全部人
-口数的 51.77%；女性人口数为 539,043，占全部人口数的 48.23%，男女人口数性别比为
-107.34% 。(图 2)。
-
-## 数据质量情况
-表 1 显示了 2022 年林州市肿瘤登记处质量控制指标情况，死亡发病比(M:I)为 0.69, 病
-理学诊断比例(MV)为 80.69%，只有死亡医学证明书的病例所占比例(DCO)为 0.83%，发
-病亚部位不详的病例所占比例为 53.51%。
-
-死亡发病比(M:I)是反映肿瘤患者预后的指标， M:I 越小预后越好，反之，则越差，(1-
-M:I)可以近似估计 5 年生存率。从不同癌症发病部位来看，M:I 最高的癌症部位为食管，
-肝脏和胆囊，其值分别为 0.9，0.88 和 0.87；M:I 最低的癌症部位为喉，甲状腺和皮肤黑色素瘤，其值分别为 0.07，0.02 和 0。
-
-病理诊断比例(MV%)是评价数据有效性的重要指标，其值越高数据有效行越高，反
-之，则有效性越低；但是 MV% 过高也可反映数据存在完整性不足的问题。 MV% 最高的
-癌症部位为鼻咽，皮肤黑色素瘤和睾丸，其值分别为 100%，100% 和 100%； MV% 最低
-的癌症部位为肝脏，脑和骨，其值分别为 24.06%，17.92% 和 7.41%。
-
-亚部位不明比例(SUB%)是评价数据有效性的指标之一， SUB% 最高的癌症部位为鼻
-咽，子宫颈和睾丸，其值分别为 100%，100% 和 100%； SUB% 最低的癌症部位为卵巢，
-前列腺和肾，其值分别为 0%，0% 和 0%。
-
-#### 不同年份的历史情况
-什么情况什么情况什么情况什么情况
-什么情况什么情况什么情况什么情况
-什么情况什么情况什么情况什么情况
-什么情况什么情况什么情况什么情况
-什么情况什么情况什么情况什么情况
-什么情况什么情况什么情况什么情况
-什么情况什么情况什么情况什么情况
-
-#### 年龄别率
-建峰的卡拉胶打卡机啊李金龙的金龙豆浆啊李靖大李靖德林卡金龙豆浆
-截断卡里的卡金龙发金龙大舅辣的金龙咖啡建峰
-
-{{<pagebreak>}}
-
-## 其他情况
-什么情况什么情况什么情况什么情况
-什么情况什么情况什么情况什么情况
-什么情况什么情况什么情况什么情况
-什么情况什么情况什么情况什么情况
+get_last <- function(x, n, dis){
+  loc <- which(sort(x) < n)
+  return(  dis[loc])
+}
 
 
+predata <- function(x) {
+  x |> summary() |>
+    select(areacode, fbs, sws) |>
+    left_join(pop, by = "areacode") |>
+    mutate(id = row_number(),
+           rks = label_number(scale = 1/10000, accuracy = 1)(rks_std),
+           fbs_per = fbs/fbs_std,
+           sws_per = sws/sws_std,
+           across(c(fbs,sws,fbs_std,sws_std), function(x){ format(x, big.mark = "")}))
+}
+
+```
+
+```{r}
+registry_code <- canregR::show_registry(1:4)
+#all_county <- readRDS(params$datafile)
+all_county <- canregR::read_sqlite(show_registry(1:6), 2026)
+```
+
+
+
+```{r}
+pop1 <- read_pop("41") |>
+  group_by(areacode, year) |>
+  reframe(rks = sum(rks, na.rm = TRUE)) |>
+  filter(!rks == 0) |>
+  group_by(areacode) |>
+  arrange(year) |>
+  slice_tail(n = 1) |>
+  ungroup() |>
+  mutate(fbs_std = ifelse(substr(areacode, 5, 5) == "0",
+                          round(rks * 300/100000),
+                          round(rks * 250/100000)),
+         sws_std = round(rks * 150/100000)) |>
+  select(areacode, rks, fbs_std, sws_std)
+
+pop <- pop1 |>
+  mutate(areacode = paste0(substr(areacode, 1, 4), "00")) |>
+  group_by(areacode) |>
+  reframe(across(c(rks, fbs_std, sws_std), sum)) |>
+  bind_rows(pop1) |>
+  rename(rks_std = rks)
+pop_registry <- pop |> filter(areacode %in% show_registry(1:6))
+```
+
+```{r}
+# 可复用示例使用的模拟数据，不代表真实业务结果。
+demo_progress <- data.frame(
+  quarter = factor(c("第一季度", "第二季度", "第三季度", "第四季度"),
+                   levels = c("第一季度", "第二季度", "第三季度", "第四季度")),
+  incidence = c(23.4, 48.7, 76.2, 96.8),
+  mortality = c(18.6, 42.3, 69.5, 93.1)
+)
+
+demo_regions <- data.frame(
+  region = c("甲地区", "乙地区", "丙地区", "丁地区", "戊地区"),
+  population = c(412.6, 365.8, 298.4, 251.7, 189.3),
+  cases = c(1280, 1096, 842, 735, 516),
+  completeness = c(98.2, 95.6, 91.4, 88.7, 84.3)
+)
+```
+
+## 项目背景
+
+```{epoxy}
+河南省肿瘤登记项目受中央财政转移支付项目的经费支持，经费来源分别为肿瘤随访登记项目和淮河流域癌症早诊早治项目，{params$year}年度，受经费资助的项目点覆盖全省18个地市的{ length(registry_code)}个区(县)，占全部区(县)数的{.percent length(registry_code)/157}，覆盖{.comma sum(pop_registry$rks_std)/10000}万人口，占河南省户籍人口数的{.percent sum(pop_registry$rks_std)/115360000}。与此同时，按照健康中国行动（2019-2030）的要求，不断推进肿瘤登记工作在河南省所有县区全覆盖，并提升肿瘤登记工作质量，本工作简报将定期公布全省各县区肿瘤登记工作进展情况。（@tbl-city-summary）
+
+
+## {params$year}年肿瘤登记数据上报进展情况
+按照河南省卫生健康委有关要求，肿瘤登记工作需按季度通报各肿瘤登记处的数据收集进展情况。为客观反映各地肿瘤登记数据上报进度，本期工作简报公布各地市及各县（市、区）发病和死亡数据的任务完成比例（%）。见 @eq-task
+```
+
+$$
+\text{任务完成比例（\%）}
+=
+\frac{\text{实际收集发病（死亡）数}}
+{\text{发病（死亡）任务数}}
+\times 100
+$$ {#eq-task}
+
+
+### 任务依据
+
+各县（市、区）发病和死亡任务病例数根据当地户籍人口规模及城乡属性进行测算^[这是第一个脚注]。其中，城市地区采用河南省城市地区肿瘤发病率和死亡率，农村地区采用河南省农村地区肿瘤发病率和死亡率，分别估算各县（市、区）应收集的发病和死亡病例数，并以此作为数据收集任务数及任务完成比例的计算依据^[这是第二个脚注]。
+
+
+{{< pagebreak >}}
+
+```{r}
+#| label: tbl-city-summary
+#| tbl-cap: !expr 'paste0("各地市", params$year, "年肿瘤登记数据上报进度情况")'
+all_county |>
+  cr_reframe(strat = "city") |>
+  summary() |>
+  select(areacode, fbs, sws) |>
+  left_join(pop, by = "areacode") |>
+  filter(!is.na(rks_std)) |>
+  mutate(rks = label_number(scale = 1/10000, accuracy = 1)(rks_std),
+         fbs_per = percent(fbs/fbs_std, accuracy = 0.1),
+         sws_per = percent(sws/sws_std, accuracy = 0.1),
+         id = row_number(),
+        across(c(fbs, sws, fbs_std, sws_std),
+                  function(x){ format(x, big.mark = "")})) |>
+  add_labels(label_type = "full") |>
+  select(id, areacode_cn, rks, fbs_std, fbs, fbs_per, sws_std, sws, sws_per) |>
+  rename(area_cn = areacode_cn) |>
+  tt(
+     width = c(0.1, 0.15, rep(0.12, 7)),
+     notes = list(
+        "a" = list(
+          i = 1,
+          j = "fbs_per",
+          text = "发病数据上报未达到当前时间进度要求。"
+        ),
+        "b" = list(
+          i = 10,
+          j = "sws_per",
+          text = "死亡数据上报未达到当前时间进度要求。"
+        )
+      )
+  ) |>
+  label_canreg_header(table = "progress") |>
+  theme_tt_striped(header_line_spacing = 4, body_line_spacing = 1.5) |>
+  style_tt(fontsize = 0.8)
+```
+
+{{< pagebreak >}}
+
+## 表、图和公式的可复用示例
+
+本节集中展示报告中常见的对象及其正文引用方式。复杂业务表见 @tbl-city-summary；Markdown 原生表见 @tbl-markdown-progress；由 R 数据框生成的表见 @tbl-kable-regions。趋势图见 @fig-progress-trend，地区比较图见 @fig-region-completeness，组合图见 @fig-progress-panels。计算时可分别引用 @eq-completion、@eq-weighted-completion 和 @eq-standard-error。
+
+### 表格示例
+
+Markdown 表适合少量、固定的数据，源文件直观且不依赖 R。@tbl-markdown-progress 汇总了四个季度的模拟完成率，其中上标可用于标记需要解释的数据。
+
+| 季度 | 发病完成率 | 死亡完成率 | 状态 |
+|:---|---:|---:|:---:|
+| 第一季度 | 23.4% | 18.6% | 起始监测 |
+| 第二季度 | 48.7% | 42.3% | 持续上报 |
+| 第三季度 | 76.2% | 69.5% | 接近目标 |
+| 第四季度 | 96.8%^a^ | 93.1% | 年度汇总 |
+
+: 模拟季度上报完成率 {#tbl-markdown-progress}
+
+^a^ 示例上标：可在表格下方补充口径、数据来源或异常说明。
+
+当数据由分析流程产生时，可直接把数据框交给 `knitr::kable()`。@tbl-kable-regions 展示了适合普通汇总表的最小写法。
+
+```{r}
+#| label: tbl-kable-regions
+#| tbl-cap: "模拟地区人口、病例数与完整性指标"
+knitr::kable(
+  demo_regions,
+  col.names = c("地区", "人口（万人）", "病例数", "完整性（%）"),
+  align = c("l", "r", "r", "r"),
+  digits = c(0, 1, 0, 1)
+)
+```
+
+{{< pagebreak >}}
+
+需要表头分组、条纹、单元格脚注或更细致样式时，可采用 `tinytable`。@tbl-tinytable-qc 使用模拟数据展示表注和对齐设置。
+
+```{r}
+#| label: tbl-tinytable-qc
+#| tbl-cap: "模拟地区登记完整性质量控制表"
+demo_regions |>
+  select(region, cases, completeness) |>
+  rename(
+    地区 = region,
+    `登记病例数` = cases,
+    `完整性（%）` = completeness
+  ) |>
+  tt(
+    notes = list(
+      "a" = list(
+        i = 5,
+        j = "完整性（%）",
+        text = "该数值仅用于演示单元格脚注，不代表真实评价结果。"
+      )
+    )
+  ) |>
+  style_tt(align = "lrr", fontsize = 0.82)
+```
+
+正文引用不需要手工维护编号。例如，可写“@tbl-markdown-progress 显示完成率随季度增加，而 @tbl-tinytable-qc 展示了如何为特定单元格添加表注”。
+
+{{< pagebreak >}}
+
+### 图形示例
+
+@fig-progress-trend 使用一张图同时表达两条时间趋势，适合季度或月度监测报告。
+
+```{r}
+#| label: fig-progress-trend
+#| fig-cap: "模拟发病与死亡数据上报完成率趋势"
+#| fig-width: 7
+#| fig-height: 4.2
+old_par <- par(mar = c(4.2, 4.2, 1.0, 1.0), las = 1)
+plot(
+  seq_len(nrow(demo_progress)), demo_progress$incidence,
+  type = "o", pch = 16, lwd = 2, col = "#0b3d78",
+  xaxt = "n", ylim = c(0, 100),
+  xlab = "季度", ylab = "完成率（%）"
+)
+axis(1, at = seq_len(nrow(demo_progress)), labels = demo_progress$quarter)
+lines(
+  seq_len(nrow(demo_progress)), demo_progress$mortality,
+  type = "o", pch = 17, lwd = 2, col = "#5a9bd5"
+)
+abline(h = c(25, 50, 75, 100), col = "#d9e6f2", lty = 3)
+legend(
+  "topleft", legend = c("发病", "死亡"),
+  col = c("#0b3d78", "#5a9bd5"), pch = c(16, 17),
+  lty = 1, bty = "n"
+)
+par(old_par)
+```
+
+@fig-region-completeness 展示横向排序条形图，适合地区较多、名称较长的比较场景。
+
+```{r}
+#| label: fig-region-completeness
+#| fig-cap: "模拟地区登记完整性比较"
+#| fig-width: 7
+#| fig-height: 4.2
+plot_data <- demo_regions[order(demo_regions$completeness), ]
+old_par <- par(mar = c(4.2, 5.2, 1.0, 1.0), las = 1)
+barplot(
+  plot_data$completeness,
+  names.arg = plot_data$region,
+  horiz = TRUE,
+  xlim = c(0, 100),
+  col = "#5a9bd5", border = NA,
+  xlab = "完整性（%）"
+)
+abline(v = 90, col = "#0b3d78", lty = 2, lwd = 1.5)
+par(old_par)
+```
+
+同一主题需要并列比较时，可以输出带子图标题的组合图。正文既可以引用整组 @fig-progress-panels，也可以分别引用 @fig-progress-panels-1 和 @fig-progress-panels-2。
+
+```{r}
+#| label: fig-progress-panels
+#| fig-cap: "模拟季度上报完成率分面展示"
+#| fig-subcap:
+#|   - "发病数据完成率"
+#|   - "死亡数据完成率"
+#| layout-ncol: 2
+#| fig-width: 4.2
+#| fig-height: 3.4
+old_par <- par(mar = c(4.0, 4.0, 1.0, 0.8), las = 1)
+barplot(
+  demo_progress$incidence,
+  names.arg = paste0("Q", 1:4), ylim = c(0, 100),
+  col = "#0b3d78", border = NA,
+  xlab = "季度", ylab = "完成率（%）"
+)
+barplot(
+  demo_progress$mortality,
+  names.arg = paste0("Q", 1:4), ylim = c(0, 100),
+  col = "#5a9bd5", border = NA,
+  xlab = "季度", ylab = "完成率（%）"
+)
+par(old_par)
+```
+
+![扩展自带的标识图片，可用标准 Markdown 语法插入外部或本地图片。](_extensions/qcreport/_assets/logos/logo.png){#fig-static-logo width=38% fig-align="center"}
+
+@fig-static-logo 演示了静态图片的插入和引用；实际项目中可以替换为流程图、地图、研究框架图或照片。
+
+### 公式示例
+
+行内公式适合嵌入句子，例如完成比例可写为 $p=x/n$，其中 $x$ 是已完成数量，$n$ 是目标数量。需要在其他段落引用时，应使用带标签的行间公式。
+
+$$
+R_q = \frac{x_q}{n_q} \times 100\%
+$$ {#eq-completion}
+
+@eq-completion 给出了第 $q$ 个季度的完成率。若不同地区需要按人口权重合并，可使用 @eq-weighted-completion：
+
+$$
+R_{w} = \frac{\sum_{i=1}^{k} w_i R_i}{\sum_{i=1}^{k} w_i}
+$$ {#eq-weighted-completion}
+
+其中，$R_i$ 是第 $i$ 个地区的完成率，$w_i$ 是相应权重，$k$ 是地区数。比例的近似标准误可写为 @eq-standard-error：
+
+$$
+SE(\hat{p}) = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
+$$ {#eq-standard-error}
+
+由 @eq-standard-error 可进一步得到近似置信区间：
+
+$$
+CI_{95\%} = \hat{p} \pm 1.96 \times SE(\hat{p})
+$$ {#eq-confidence-interval}
+
+在正文中可以组合引用，例如：“根据 @eq-completion 计算各季度完成率，按照 @eq-weighted-completion 汇总地区结果，并使用 @eq-confidence-interval 表达抽样不确定性。”
+
+### 综合引用示例
+
+一个典型结果段落可以写成：@tbl-markdown-progress 显示模拟完成率逐季度提高，这一趋势与 @fig-progress-trend 一致；地区间差异可结合 @tbl-kable-regions 和 @fig-region-completeness 阅读。完成率的定义见 @eq-completion，加权汇总方法见 @eq-weighted-completion。这样即使后续增删对象，表号、图号和公式编号也会由 Quarto 自动更新。

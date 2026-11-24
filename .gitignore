@@ -8,6 +8,10 @@ docs
 .secrets
 .DS_Store
 */.DS_Store
+/_extensions/
 inst/doc
-data-raw/
+data-raw/*
+!data-raw/update_formats.R
 
+
+/.luarc.json

@@ -34,6 +34,9 @@ $endif$
 $if(header-color)$
   header-color: $header-color$,
 $endif$
+$if(accent-color)$
+  accent-color: $accent-color$,
+$endif$
 $if(mainfont)$
   mainfont: ("$mainfont$",),
 $endif$

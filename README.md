@@ -35,5 +35,5 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(crformats)
-use_quarto_ext(ext_name = "qcreport")
+use_format(format_name = "qcreport")
 ```

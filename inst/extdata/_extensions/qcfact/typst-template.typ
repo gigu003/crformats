@@ -19,10 +19,16 @@
   registry: "",
   report: "",
   year: 2021,
-  header-color: rgb("#f08a5d"),
+  header-color: rgb("#2B579A"),
+  accent-color: none,
   doc
 ) = {
-//let header-color  = rgb("#f08a5d")
+// 默认强调色: 比主色亮 20%，提供层次感
+let accent = if accent-color == none {
+  header-color.lighten(20%)
+} else {
+  accent-color
+}
 set text(fill: luma(255), size: 30pt, font: mainfont)
 
 let bg-page = context{
@@ -79,7 +85,7 @@ set page(
 
 show heading: it => {
   set par(first-line-indent: 0em)
-  set text(tracking: 2pt, fill: header-color)
+  set text(tracking: 2pt, fill: accent)
   box[#if it.numbering != none {
          counter(heading).display()
       }
@@ -89,7 +95,7 @@ show heading: it => {
 }
 
 place(top + center,
-block(fill: header-color, width: width, height: 70pt,
+block(fill: accent, width: width, height: 70pt,
 grid(
 columns: (3fr, 1fr),
 place(top + left, text(font: mainfont, size: 45pt, tracking: 5pt)[#h(0.5em)#title]),

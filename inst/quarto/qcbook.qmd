@@ -1,0 +1,180 @@
+---
+title: 人群肿瘤登记数据的内部一致性逻辑审核
+subtitle: 中文书籍与报告排版
+author: Qiong Chen
+date: today
+bibliography: references.bib
+lang: zh
+citeproc: true
+#brand: _brand.yml
+csl: chinese-gb7714-2005-numeric.csl
+cover-note: 本示例用于展示 qcbook-typst 扩展的封面、目录、图表目录、章节标题与规则提示框。
+crossref:
+  fig-title: 图
+  fig-prefix: 图
+  tbl-title: 表 
+  tbl-prefix: 表    
+  title-delim: ""
+  tbl-labels: roman
+  appendix-title: "附录"
+  appendix-delim: ":"
+  chapters: true
+  lof-title: "图"
+  lot-title: "表"
+code-annotations: below
+format:
+  qcbook-typst:
+    code-block-leading: 0.8em
+    code-block-size: 1em
+    body-leading: 1em
+    body-spacing: 1.5em
+    list-indent: 2em
+    list-leading: 0.8em
+    list-spacing: 1em
+    toc-title: "目录"
+    title-size: 2.6em
+    title-line-height: 0.6em
+    toc: true
+    lof: true
+    lot: true
+    keep-typ: true
+---
+
+# 序 {-}
+
+bababaal
+
+# Introduction
+
+这是 `qcbook-typst` 的功能展示文档。模板适合中文书籍^[这是一个脚注示例。]、培训手册、编码指南、研究报告等 PDF 输出场景。
+
+## 文本与脚注
+
+正文默认使用中文字体、首行缩进和两端对齐。这里演示一个脚注^[这是另外一个脚注示例。]，用于检查脚注样式。
+
+> 这是引用块示例。模板会将引用块显示为强调说明样式，适合放置规则描述、注意事项或重点提示。
+
+## 自定义规则块
+
+::: {.rule title= "规则B - 解剖学部位的方位修饰词" source="ICD-O-3"}
+如果肿瘤诊断中的解剖学部位被周围、旁、前、后、上、下等方位修饰词修饰，且 ICD-O-3 中未明确列出该部位时，应编码至 C76 的相应亚目。但如果肿瘤的组织学类型能够明确提示其来源于某一特定组织，则应编码至对应的明确解剖学部位。
+
+:::
+
+
+## 列表
+
+- 支持普通无序列表；
+- 支持多级内容组织；
+- 适用于培训材料、手册和规范文档。
+
+
+
+1. 第一步：准备 Quarto 文档；
+2. 第二步：设置 `format: qcbook-typst`；
+3. 第三步：运行 `quarto render`。
+
+## 图片
+
+
+```{r}
+#| label: fig-cover
+#| fig-cap: "图书封面"
+#| fig-height: 2
+knitr::include_graphics("_assets/cover-bg2.png")
+```
+
+
+![fjkdfd](_assets/logos/logo.png){#fig-logo}
+
+@fig-cover 展示了示例图片的引用方式。
+
+## 代码块
+
+```{r}
+#| label: tbl-table-example
+#| tbl-cap: "样本表格"
+library(tinytable)
+mtcars |> # <1>
+  tt()
+```
+
+# 章节样式
+
+一级标题会以章节形式显示，并自动生成类似“第 N 章”的样式。
+
+## 二级标题
+
+二级标题用于组织章内主要小节。
+
+### 三级标题
+
+三级标题用于进一步细分内容。
+
+#### 四级标题
+
+四级标题适合短小说明或局部主题。
+
+## More Information
+
+You can learn more about creating custom Typst templates here: 
+
+<https://quarto.org/docs/prerelease/1.4/typst.html#custom-formats>
+
+
+
+{{<pagebreak>}}
+新的页面
+
+# 新的章节
+
+新的章节介绍。本章继续测试章节后参考文献列表。河南省癌症终身风险研究关注癌症发生和死亡风险的长期趋势 [@ChenQiong2025]；中文电子病历信息提取方法和 BioBERT 分别代表中文医学文本处理和英文生物医学预训练模型的测试条目 [@JiXuRui2024; @lee2020]。
+
+此外，医疗保险数据可作为传统肿瘤登记资料的重要补充 [@LaiXueFeng2022]，而基于人群登记数据的联结研究有助于提升电子健康记录癌症研究的有效性 [@thompson2020]。
+
+
+# 新的章节
+
+new things。本章用于测试英文段落中的混合引用。Cancer registry data linkage can improve completeness of research variables [@charlton2022], and population-based registry linkages are useful for assessing validity and generalizability in EHR-based cancer research [@thompson2020]. Chinese cancer registry development and CI5 participation are discussed by @ZhangSiWei2025.
+
+![河南省肿瘤医院](_assets/logos/logo.png){#fig-logo2}
+
+## 分级打卡立峰
+
+多文献混合引用测试：中文肿瘤登记、疾病负担、电子病历信息抽取与英文 NLP/数据联结文献可以在同一括号中显示 [@LiShaoFang2026; @JiXuRui2024; @lee2020; @charlton2022]。
+
+
+# 附录 {.appendix}
+
+本节展示 Quarto 附录章节的基本写法。YAML 中已经设置 `crossref.appendix-title: "附录"` 与 `appendix-delim: ":"`，因此这里的一级标题会作为附录章节参与编号与交叉引用。
+
+## 附录说明
+
+附录适合放置正文之外的补充材料，例如数据字典、审核规则清单、代码说明或额外图表。
+
+- 附录仍然支持普通段落、列表、脚注^[这是附录中的脚注示例。]与交叉引用；
+- 附录中的二级标题可用于组织不同类型的补充材料；
+- 如果需要多个附录，可以继续新增一级标题并添加 `{.appendix}` 类。
+
+::: {.rule title="附录规则示例" source="附录 A"}
+附录中的规则块可用于展示补充审核条件、变量定义或编码说明。
+:::
+
+```{r}
+#| label: tbl-appendix-example
+#| tbl-cap: "附录样本表格"
+data.frame(
+  变量 = c("sex", "age", "site"),
+  含义 = c("性别", "诊断年龄", "原发部位"),
+  示例 = c("1=男；2=女", "65", "C18.9")
+) |>
+  tinytable::tt()
+```
+
+@tbl-appendix-example 展示了附录中表格编号与引用的样式。
+
+
+# 参考文献 {.unnumbered}
+
+::: {#ref}
+:::

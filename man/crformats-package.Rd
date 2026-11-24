@@ -6,10 +6,17 @@
 \alias{crformats-package}
 \title{crformats: Using Quarto Extensions Designed for Cancer Registry Reports}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Provides Quarto extension templates, styles, and helper functions for generating high-quality cancer registry reports.
 }
 \author{
-\strong{Maintainer}: Qiong Chen \email{chenq08@126.com} (\href{https://orcid.org/0000-0003-2401-0046}{ORCID}) (Department of Cancer Epidemiology, The Affiliated Cancer Hospital of Zhengzhou University & Henan Cancer Hospital, Henan Cancer Registry in China) [copyright holder]
+\strong{Maintainer}: Qiong Chen \email{chenq08@126.com} (\href{https://orcid.org/0000-0003-2401-0046}{ORCID}) (affiliation: Department of Cancer Epidemiology, The Affiliated Cancer Hospital of Zhengzhou University & Henan Cancer Hospital, Henan Cancer Registry in China) [copyright holder]
+
+Authors:
+\itemize{
+  \item Qiong Chen \email{chenq08@126.com} (\href{https://orcid.org/0000-0003-2401-0046}{ORCID}) (affiliation: Department of Cancer Epidemiology, The Affiliated Cancer Hospital of Zhengzhou University & Henan Cancer Hospital, Henan Cancer Registry in China) [copyright holder]
+}
 
 }
 \keyword{internal}

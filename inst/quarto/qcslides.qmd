@@ -1,0 +1,350 @@
+---
+title: "基于肿瘤登记数据估计终生患癌风险"
+subtitle: "使用R语言估计终生风险"
+date: today
+lang: zh
+date-format: "YYYY年M月DD日"
+authors:
+  - name: '陈琼'
+    affiliation: 河南省肿瘤医院
+    email: chenq08@126.com
+    website: https://chenq.site
+    wechat: 微信公众号【普癌新声】
+thanks-page: true
+author-page: true
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
+categories:
+  - 肿瘤登记
+  - R语言
+series: "肿瘤登记"
+logo-text: "河南省肿瘤医院"
+format:
+  qcslides-typst:
+    fontsize: 19pt
+    title-size: 2em
+    subtitle-size: 0.92em
+    mainfont: "Noto Sans Osage"
+    title-font: "STHeiti"
+    subtitle-font: "STHeiti"
+    logo-image: "/Users/qc0824/Documents/3_Resources/R_Packages/logos/canregtools.png"
+    logo-text: "肿瘤登记系列R语言包"
+    logo-height: 12mm
+    logo-layout: image-text
+    theme-color: blue
+    title-page-style: modern
+    title-page-bg-image: "_assets/qccard-bg.png"
+    title-page-bg-opacity: 90%
+    body-bg-image: "_assets/body-bg.png"
+    body-bg-opacity: 100%
+    title-block-width: 90%
+    title-block-y: 15%
+    title-meta-color: luma(80)
+    title-meta-y: 55%
+    number-sections: true
+    section-overview: true
+    section-overview-style: contents-card
+    code-size: 1.2em
+    code-leading: 1em
+---
+
+
+# 终生患癌风险概念
+
+## 基础页面元素示例 {.logo logo-image="/Users/qc0824/Documents/3_Resources/R_Packages/logos/crcheck.png" logo-text="内部一致性逻辑审核R语言包" logo-layout="image-text"}
+
+这是一个较完整的 `qcslides-typst` 模板示例，展示标题、正文、引用、列表、短代码以及多种演示文稿组件。
+
+> 引用块会显示为带有左侧强调条的样式，适合放置定义、观点或重要说明。
+
+{{< v 1em >}}
+
+- 使用 `#` 创建一级章节。
+- 使用 `##` 创建新的内容页。
+- 使用 `{{< v 1em >}}` 插入垂直间距。
+- 可以混合正文、列表、引用、代码块和图片。
+
+## R 代码块示例
+
+下面使用 base R 整理不同人群的终生患癌风险，代码与计算结果均会显示，无需安装额外软件包。
+
+```{r}
+#| label: lifetime-risk-example
+#| echo: true
+#| warning: false
+
+risk <- c(overall = 25.10, male = 26.27, female = 23.98)
+sprintf("%s: %.2f%%", names(risk), risk)
+```
+
+## [列表示例]{color="red"}
+
+::: {.list marker="📽️" leading="0.5em" spacing="1em" color="black" font-size="1em" bg-color="#5656e1" bg-opacity="30%" indent="0em" padding="1em" radius="0.6em"}
+- 列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1[文字描述]{color="red" font-size="1em" bg="black" bg-opacity="60%" padding="0.3em"}
+- 列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1
+- 列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1列表项目1
+:::
+
+[这是一个单独的文字属性调整示例]{font-size="1em" color="gray"}
+
+
+## Callout 示例
+
+::: {.callout-note}
+## 说明
+qcslides 会将 Quarto 原生 callout 渲染为适合演示文稿的卡片样式。
+:::
+
+::: {.callout-warning}
+## 注意
+中文字体需要在本机已安装，否则可能无法正常显示。
+:::
+
+## 疾病风险
+
+> 某一结局事件（疾病）在一个特定时间范围内的发生的概率或可能性^[风险、机会、概率或可能性]。
+
+**为什么评估疾病风险？**
+
+{{<v 1em>}}
+
+ - 公共卫生行动决策需要
+ - 合理分配公共卫生资源(时间和资金)
+
+## 绝对风险 VS 相对风险
+
+> **绝对风险**(Absolute risk)，在特定的时期内特定人群发展为癌症的概率或可能性大小。
+
+**终生患癌风险**是绝对风险的一种类型：
+
+-  2020年，全球人群从出生到死亡的生命周期内被诊断为癌症的概率为25.10%，男性为26.27%，女性为23.98%^[Zheng RS, Wang SM, Zhang SW, et al. Global, regional, and national lifetime probabilities of developing cancer in 2020. [J] Sci Bull(Beijing). 2023;68(21):2620-2628.]。
+- 每四个人中有一人（1 in 4）会在整个生命周期内被诊断为癌。
+
+# 基于R语言估计终生风险
+
+## 关键指标示例{-}
+
+::: {.keyvalue columns="4" height="40mm" gap="1em" value-size="1.5em" label-size="auto" note-size="auto" inset="auto"}
+- 25.10%｜全球人群终生患癌风险｜约每四个人中有一人
+- 26.27%｜男性终生患癌风险｜男性略高于总体水平
+- 23.98%｜女性终生患癌风险｜女性略低于总体水平
+:::
+
+## 图文布局示例{-}
+
+```{=typst}
+#qsplit(
+  left: [
+    === 左侧内容
+    - 支持列表
+    - 支持强调文字
+    - 适合放置解释说明
+  ],
+  right: [
+    #image("images/R.jpg", width: 100%)
+  ],
+)
+```
+
+## 核心模块卡片{-}
+
+::: {.cards columns="4"}
+- 📕 目标｜明确终生患癌风险估计的研究问题和应用场景
+- 📊 数据｜整理肿瘤登记、死亡监测和人口结构数据
+- 🧮 方法｜使用生命表方法计算年龄别条件概率
+- 🧭 流程｜规范数据准备、模型计算、结果展示和报告撰写
+:::
+
+
+## 卡片页{-}
+
+::: {layout-ncol=3}
+
+::: {.card2 title="规范层" subtitle="明确‘做什么、怎么做’" accent-color="#70af92" list-size="0.8em" height="80mm"}
+
+- 数据标准（人口学、肿瘤学等）
+- 编码规则（ICD-10、ICD-O-3 等）
+- 质量标准（内部一致性、完整性等）
+:::
+
+::: {.card2 title="规范层" subtitle="明确‘做什么、怎么做’" list-size="0.8em"  height="80mm"}
+
+- 数据标准（人口学、肿瘤学等）
+:::
+
+::: {.card2 title="规范层" subtitle="明确‘做什么、怎么做’" accent-color="#e282a1" list-size="0.8em"  height="80mm"}
+
+- 数据标准（人口学、肿瘤学等）
+- 编码规则（ICD-10、ICD-O-3 等）
+- 质量标准（内部一致性、完整性等）
+:::
+
+:::
+
+
+## 年报制作流程{-}
+
+::: {.flow}
+- 数据整理
+- 质量审核
+- 统计计算
+- 图表制作
+- 年报撰写
+:::
+
+
+## 关键结论{-}
+
+::: {.keypoints height="20mm"}
+- 公共卫生决策｜终生患癌风险可用于资源配置和优先干预方向判断
+- 风险沟通｜绝对风险比相对风险更容易被公众理解
+- 方法基础｜年龄别发病率、死亡率和生命表是计算基础
+:::
+
+::: {.flow height="18mm" gap="1.5em" text-size="0.8em"}
+- 数据整理
+- 质量审核
+- 统计计算
+:::
+
+## 图表解读页{-}
+
+::: {.figure-insight image="images/lt-henan.png" insight-position="left" image-area-width="1.5fr" insight-area-width="1fr" caption="全球终生患癌风险示意图"}
+
+- 中文标签-标准编码转换｜支持数据录入或编码、数据整理或导出
+- 完整值域字典查询｜日常查询或培训
+- 数据元元数据查询｜系统设计或字段对照
+- Plumber REST API 暴露核心功能｜跨机构调用
+- 标准数据字典导出｜系统建设或培训
+:::
+
+## 金句页{-}
+
+::: {.quote-slide author="风险沟通原则" style="classic" size="1.35em" align="left"}
+风险评估的意义不在于预测个体命运，而在于支持群体决策。
+:::
+
+## 分析流程时间线{-}
+
+{{<v 1em>}}
+
+::: {.timeline}
+- 🔬 2026: 数据收集｜整理年龄别发病率、死亡率和人口数据
+- 🧮 2027: 模型计算｜使用生命表方法计算年龄别条件概率
+- 📊 2028: 可视化｜汇总终生患癌风险并进行图形化呈现
+- 📝 2029: 发表论文|撰写高质量论文3篇
+- 📈 2030: 生存分析|统计计算5年生存率
+- 📕 2035: 书籍|撰写年报
+- 💤 2040: 休息睡觉
+:::
+
+## 纵向分析流程{-}
+
+::: {.timeline .vertical threshold="3"}
+- 阶段一: 数据准备｜整理年龄别发病率、死亡率和人口数据
+- 阶段二: 模型计算｜使用生命表方法计算年龄别条件概率
+- 阶段三: 结果展示｜汇总终生患癌风险并进行图形化呈现
+- 阶段四: 报告撰写｜形成研究报告、论文或年报
+- 阶段五: 生存分析｜统计计算5年生存率
+- 阶段六: 成果汇编｜整理年报、图表和方法附录
+:::
+
+## 项目计划甘特图{-}
+
+::: {.gantt start="2026-01" end="2027-12" scale="quarter" title="2026河南省肿瘤登记年报进展" task-header="研究项目" milestone-color="orange" label-width="auto" max-label-width="12em" show-year="true" today="2026-09" task-number="true" row-height="8mm"}
+- 数据收集｜2026-01｜2026-04｜登记数据；死亡数据；人口数据｜99%
+- 数据清洗｜2026-03｜2026-06｜质量控制 数据清洗｜95%
+- 模型计算｜2026-05｜2026-07｜生命表方法｜0.55
+- 结果可视化｜2026-08｜2026-10｜图表汇总｜25
+- 报告撰写｜2026-10｜2026-12｜论文/年报｜0%
+- !成果发布｜2027-01｜2027-03｜成果发布会｜45%
+- 推广应用|2027-04|2027-12|适宜技术开发|35%
+- note 数据进度截至 2026 年 9 月，后续节点将根据年报编制情况动态调整。
+- note 里程碑日期以正式发布通知为准。
+- note 年报的发布进度👋出版社的内部流程影响
+:::
+
+# 基于GLOBOCAN数据估计终生风险
+
+## 图片列表示例
+
+::: {.image-list columns="4" image-height="50mm" fit="cover" cap-location="top-left"}
+- images/R.jpg | R 语言
+- images/RStudio.jpg | RStudio IDE
+- images/amp.jpg | AMP 示例
+- images/amp.jpg | AMP 示例
+- images/amp.jpg | AMP 示例
+- images/amp.jpg | AMP 示例
+- images/amp.jpg | AMP 示例
+- images/amp.jpg | AMP 示例
+:::
+
+## 图片列表 Caption 位置
+
+::: {.image-list columns="3" image-height="42mm" fit="cover" cap-location="bottom-left" caption="图：使用 cap-location 将每张图片 caption 放在图片内部"}
+- images/R.jpg | 左上角说明
+:::
+
+
+## code chunk
+
+
+```{r}
+#| label: tbl-risk1
+#| tbl-cap: "美国男性和女性特定癌种终生患癌风险"
+#| code-summary: "代码块"
+library(tinytable)
+library(crflow)
+library(dplyr)
+data <- tibble::tribble(
+                        ~sites,  ~m1,  ~m2,  ~f1,  ~f2,
+                  "全部", 41.6,   2L, 39.6,   3L,
+                    "前列腺", 12.9,   8L,   NA,   NA,
+           "肺癌",  6.3,  16L,  5.9,  17L,
+            "结直肠癌",  4.3,  23L,  3.9,  25L,
+  "膀胱癌(包括原位癌)",  3.6,  28L,  1.1,  89L,
+       "皮肤黑色素瘤",  3.6,  28L,  2.5,  41L,
+                      "乳腺癌",  0.1, 726L,   13,   8L,
+        "非霍奇金淋巴瘤",  2.4,  42L,  1.9,  52L,
+     "肾和肾盂",  2.3,  43L,  1.4,  73L,
+                    "淋巴瘤",  1.9,  53L,  1.3,  75L,
+                    "胰腺癌",  1.7,  58L,  1.7,  60L,
+         "肝癌",  1.5,  65L,  0.7, 143L
+  )
+yy <- data |> 
+  rename('部位' = sites, '男性(%)' = m1, '男性(1 in x)' = m2,
+          '女性(%)' = f1, '女性(1 in x)' = f2) |> 
+  tt() |> 
+  theme_tt_striped() |> 
+  style_tt(j = 1, align = "l") |> 
+  style_tt(j = 2:5, align = "c")
+yy
+```
+
+
+## code chunk
+
+> 基于 DevCan 内置示例数据 “All sites, All Races, Both Sexes, 2019–2022 (2020 Excluded)” 开展终生患癌风险估计，并将计算结果与 DevCan 软件结果进行比较，二者结果一致，验证了该方法实现的准确性。
+
+```{r}
+#| label: tbl-devcan
+#| tbl-cap: "ltRISK估计终生患癌风险与DevCan结果比对情况"
+#| code-summary: "代码块"
+library(ltRISK)
+library(dplyr)
+library(tidyr)
+library(tinytable)
+library(crflow)
+ltRISK::seer_example_data |> 
+  filter(site == "All", sex == 0) |> 
+  calc_ltr_df(ages = ages, cancer = cancer, cancer_death = cancer_death, death = death, pys = pys, age_start = seq(0, 90, 5), age_end = c(seq(0, 90, 5), Inf), risk_func = "devcan") |> 
+  format_risk_ci(digits = 3) |> 
+  pivot_wider(id_cols = "start", names_from = "end", values_from = "risk_95ci") |> 
+  mutate(start = as.character(as.integer(start))) |> 
+  tt() |> 
+  theme_tt_striped(body_fontsize = 0.3, header_fontsize = 0.35) |> 
+  format_tt(replace = list("--" = "NA"))
+```

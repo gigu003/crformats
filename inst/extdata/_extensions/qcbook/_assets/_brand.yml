@@ -1,0 +1,29 @@
+color:
+  palette:
+    qc-green: "#156921"
+    qc-blue: "#518ab9"
+    qc-bg: "#efefeb"
+  foreground: "#222222"
+  background: qc-bg
+  primary: qc-green
+  secondary: qc-blue
+
+typography:
+  fonts:
+    - family: STSong
+      source: system
+    - family: STHeiti
+      source: system
+    - family: Menlo
+      source: system
+  base:
+    family: STSong
+    size: 12pt
+  headings:
+    family: STHeiti
+    weight: bold
+    style: normal
+    color: primary
+    line-height: 0.55
+  monospace:
+    family: Menlo

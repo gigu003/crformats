@@ -18,6 +18,7 @@ categories:
   - 肿瘤登记
   - R语言
 series: "肿瘤登记"
+logo-text: "肿瘤医院"
 format:
   qcard-typst:
     fontsize: 20pt
@@ -25,7 +26,27 @@ format:
     mainfont: "Noto Sans Osage"
     heading-family: "STHeiti"
     theme-color: blue
+    title-page-style: modern
+    title-block-width: 90%
+    title-block-y: 30%
+    title-meta-color: luma(90)
+    title-decoration: true
     number-sections: true
+    section-overview: true
+    section-overview-style: contents-card
+    section-overview-title-x: 10mm
+    section-overview-list-x: 35mm
+    section-overview-list-width: 68%
+    section-overview-item-height: 14mm
+    section-overview-item-inset:
+      left: 0.85em
+      right: 1.3em
+      top: 0.35em
+      bottom: 0.35em
+    section-overview-item-font-size: 1.0em
+    section-overview-marker-radius: 1.15em
+    section-overview-muted-color: luma(130)
+    section-overview-muted-marker-color: luma(180)
 ---
 
 # 终生患癌风险概念
@@ -80,3 +101,6 @@ format:
 
 -  2020年，全球人群从出生到死亡的生命周期内被诊断为癌症的概率为25.10%，男性为26.27%，女性为23.98%^[Zheng RS, Wang SM, Zhang SW, et al. Global, regional, and national lifetime probabilities of developing cancer in 2020. [J] Sci Bull(Beijing). 2023;68(21):2620-2628.]。
 - 每四个人中有一人（1 in 4）会在整个生命周期内被诊断为癌。
+
+# 基于R语言估计终生风险
+# 基于GLOBOCAN数据估计终生风险

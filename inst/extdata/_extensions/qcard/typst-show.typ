@@ -37,6 +37,36 @@ $endif$
 $if(logo-text)$
   logo-text: [$logo-text$],
 $endif$
+$if(title-page-style)$
+  title-page-style: "$title-page-style$",
+$endif$
+$if(title-block-width)$
+  title-block-width: $title-block-width$,
+$endif$
+$if(title-block-y)$
+  title-block-y: $title-block-y$,
+$endif$
+$if(title-category-fill)$
+  title-category-fill: $title-category-fill$,
+$endif$
+$if(title-meta-color)$
+  title-meta-color: $title-meta-color$,
+$endif$
+$if(title-decoration)$
+  title-decoration: $title-decoration$,
+$endif$
+$if(hide-header)$
+  hide-header: $hide-header$,
+$endif$
+$if(hide-footer)$
+  hide-footer: $hide-footer$,
+$endif$
+$if(hide-page-number)$
+  hide-page-number: $hide-page-number$,
+$endif$
+$if(series-label)$
+  series-label: [$series-label$],
+$endif$
 $if(by-author)$
   authors: (
 $for(by-author)$
@@ -119,6 +149,75 @@ $if(theme-color)$
 $endif$
 $if(first-line-indent)$
   first-line-indent: $first-line-indent$,
+$endif$
+$if(section-overview)$
+  section-overview: $section-overview$,
+$endif$
+$if(section-overview-style)$
+  section-overview-style: "$section-overview-style$",
+$endif$
+$if(section-overview-title-x)$
+  section-overview-title-x: $section-overview-title-x$,
+$endif$
+$if(section-overview-list-x)$
+  section-overview-list-x: $section-overview-list-x$,
+$endif$
+$if(section-overview-list-width)$
+  section-overview-list-width: $section-overview-list-width$,
+$endif$
+$if(section-overview-item-height)$
+  section-overview-item-height: $section-overview-item-height$,
+$endif$
+$if(section-overview-item-inset)$
+  section-overview-item-inset: ($for(section-overview-item-inset/pairs)$$section-overview-item-inset.key$: $section-overview-item-inset.value$,$endfor$),
+$endif$
+$if(section-overview-item-font-size)$
+  section-overview-item-font-size: $section-overview-item-font-size$,
+$endif$
+$if(section-overview-marker-radius)$
+  section-overview-marker-radius: $section-overview-marker-radius$,
+$endif$
+$if(section-overview-muted-color)$
+  section-overview-muted-color: $section-overview-muted-color$,
+$endif$
+$if(section-overview-muted-marker-color)$
+  section-overview-muted-marker-color: $section-overview-muted-marker-color$,
+$endif$
+$if(last-page-title)$
+  last-page-title: [$last-page-title$],
+$endif$
+$if(last-page-subtitle)$
+  last-page-subtitle: [$last-page-subtitle$],
+$endif$
+$if(website-url)$
+  website-url: "$website-url$",
+$endif$
+$if(website-text)$
+  website-text: [$website-text$],
+$endif$
+$if(wechat-text)$
+  wechat-text: [$wechat-text$],
+$endif$
+$if(contact-email)$
+  contact-email: [$contact-email$],
+$endif$
+$if(author-page-title)$
+  author-page-title: [$author-page-title$],
+$endif$
+$if(author-bio)$
+  author-bio: [$author-bio$],
+$endif$
+$if(wechat-image)$
+  wechat-image: "$wechat-image$",
+$endif$
+$if(wechat-caption)$
+  wechat-caption: [$wechat-caption$],
+$endif$
+$if(blog-image)$
+  blog-image: "$blog-image$",
+$endif$
+$if(blog-caption)$
+  blog-caption: [$blog-caption$],
 $endif$
   pagenumbering: $if(page-numbering)$"$page-numbering$"$else$none$endif$,
   cols: $if(columns)$$columns$$else$1$endif$,

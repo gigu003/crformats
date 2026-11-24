@@ -1,0 +1,118 @@
+---
+title: "中文论文双语作者信息块示例"
+title-en: "Example of Bilingual Author Information Blocks"
+lang: zh
+qcjournal:
+  bilingual: true
+  show-title:
+    zh: false
+    en: true
+  title-style:
+    en: "Subtitle"
+  author-list-style:
+    zh: "Authors"
+    en: "Authors"
+  affiliation-style:
+    zh: "Affiliations"
+    en: "Affiliations"
+  correspondence-style:
+    zh: "Author Notes"
+    en: "Author Notes"
+  equal-contributor-style:
+    zh: "Author Notes"
+    en: "Author Notes"
+  abstract-style:
+    zh: "Abstract"
+    en: "Abstract"
+  keyword-style:
+    zh: "Keywords"
+    en: "Keywords"
+  move-abstracts: true
+  chinese-et-al: true
+  chinese-et-al-citeproc: true
+  author-separator:
+    zh: "  "
+    en: ","
+authors:
+  - name: 张三
+    name-en: San Zhang
+    email: zhangsan@example.com
+    affiliations: [cdyjy]
+    attributes:
+      corresponding: true
+      equal-contributor: true
+  - name: 李四
+    name-en: Si Li
+    email: lisi@example.com
+    affiliations: [cdyjy]
+    attributes:
+      equal-contributor: true
+  - name: 王二麻子
+    name-en: Ermazi Wang
+    affiliations: [cdyjy]
+    orcid: 0000-3333-2222-1111
+  - name: 赵五
+    name-en: Wu Zhao
+    email: zhaowu@example.com
+    affiliations: [cdyjy, iot]
+    attributes:
+      corresponding: true
+    orcid: 0000-2222-1111-3333
+
+affiliations:
+  - id: cdyjy
+    name: 郑州大学附属肿瘤医院(河南省肿瘤医院), 中国, 郑州, 450008
+    name-en: Affiliated Cancer Hospital of Zhengzhou University, Zhengzhou 450008, Henan, China
+    number: 1
+  - id: iot
+    name: 无奈肿瘤医院
+    name-en: Wunai Cancer Hospital
+    number: 2
+bibliography: references.bib
+csl: chinese-gb7714-2005-numeric.csl
+format: qcjournal-docx
+---
+
+## 摘要
+### 目的
+了解河南省恶性肿瘤的疾病负担情况。
+
+### 方法
+使用了科学有效的方法。
+
+### 结果
+河南省恶性肿瘤发病率为333/10万。
+
+### 结论
+河南省恶性肿瘤疾病负担依然很重。
+
+## 关键词
+恶性肿瘤；疾病负担；河南省
+
+## Abstract
+### Objective
+Learn the cancer burden in Henan Province, China.
+
+### Method
+Using the cancer registry data.
+
+### Result
+The cancer incidence in Henan Province was 333 per 100 000 population.
+
+### Conclusion
+The cnacer burden in Henan Province, China is still high.
+
+## Keywords
+cancer; disease burden; Henan Province
+
+## 前言 {.unnumbered}
+
+此示例演示中文论文常见的双语题名、双语作者列表、双语单位和双语作者说明块[@JiXuRui2024; @ZhangSiWei2025]。
+
+此示例演示中文论文常见的双语题名、双语作者列表、双语单位和双语作者说明块[@JiXuRui2024; @thompson2020]。
+
+## 对象与方法
+### 研究对象
+
+
+## 参考文献 {.unnumbered}

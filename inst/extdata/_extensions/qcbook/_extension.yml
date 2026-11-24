@@ -1,0 +1,18 @@
+title: qcbook
+author: Qiong Chen
+version: 1.0.0
+description: A Quarto Typst format for Chinese book/report-style PDF documents.
+quarto-required: ">=1.9.38"
+contributes:
+  formats:
+    typst:
+      format-resources:
+        - _assets/
+      filters:
+        - rule.lua
+        - chinese-et-al.lua
+        - path: qcbook-book.lua
+          at: post-quarto
+      template-partials:
+        - typst-template.typ
+        - typst-show.typ

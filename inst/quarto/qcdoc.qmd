@@ -1,0 +1,57 @@
+---
+title: "中文论文示例"
+subtitle: "Example of Chinese Report"
+lang: zh
+author: 
+  - name: 陈琼
+qcdoc:
+  chinese-et-al: true
+  chinese-et-al-citeproc: true
+bibliography: references.bib
+csl: chinese-gb7714-2005-numeric.csl
+format: qcdoc-docx
+---
+
+## 摘要
+### 目的
+了解河南省恶性肿瘤的疾病负担情况。
+
+### 方法
+使用了科学有效的方法。
+
+### 结果
+河南省恶性肿瘤发病率为333/10万。
+
+### 结论
+河南省恶性肿瘤疾病负担依然很重。
+
+## 关键词
+恶性肿瘤；疾病负担；河南省
+
+## Abstract
+### Objective
+Learn the cancer burden in Henan Province, China.
+
+### Method
+Using the cancer registry data.
+
+### Result
+The cancer incidence in Henan Province was 333 per 100 000 population.
+
+### Conclusion
+The cnacer burden in Henan Province, China is still high.
+
+## Keywords
+cancer; disease burden; Henan Province
+
+## 前言 {.unnumbered}
+
+此示例演示中文论文常见的双语题名、双语作者列表、双语单位和双语作者说明块[@JiXuRui2024; @ZhangSiWei2025]。
+
+此示例演示中文论文常见的双语题名、双语作者列表、双语单位和双语作者说明块[@thompson2020]。
+
+## 对象与方法
+### 研究对象
+
+
+## 参考文献 {.unnumbered}
